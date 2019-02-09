@@ -18,8 +18,6 @@ def printMatches():
     ouptut_file = open("./" + fileName+"_result.txt", "w+")
     for line in input_file:
         matches =  re.findall(r"(?=((?:aabb)+(?:aabb)*))", line)
-        matches = 
-        print matches
         if(matches):
             for match in matches:
                 if(match != ''):

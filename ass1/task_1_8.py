@@ -1,8 +1,8 @@
 import argparse
 import re
 
-fileName = "task1_1"
-regexString = "aabb"
+fileName = "task1_8"
+regexString = "(struct(\s)+(\w)+(\s)+\*(\s)*(\w)+)"
 
 
 def printMatches():
@@ -13,7 +13,7 @@ def printMatches():
         matches = regex.findall(line)
         if(matches):
             for match in matches:
-                ouptut_file.write(match + "\n")
+                ouptut_file.write(match[0] + "\n")
 
 
 if __name__ == '__main__':
