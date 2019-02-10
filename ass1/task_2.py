@@ -61,7 +61,7 @@ class NFA:
         printStr += ("q" + str(self.finalState) + "\n")
         # printStr += "transitions:\n"
         printStr += ", ".join(("(q" + str(x['from']) + ", " + x['tran'] + ", [" + ",".join(
-            str(s) for s in x['to']) + "])") for x in self.transitions)
+            ("q" +str(s)) for s in x['to']) + "])") for x in self.transitions)
         printStr += "\n"
         return printStr
 
