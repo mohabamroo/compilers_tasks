@@ -1,0 +1,3 @@
+S : S + S | S S | ( S ) | S * | a
+A : A c | A a d | b d | epsilon
+K: a K K b K | a K a K b | a b b | b
