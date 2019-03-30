@@ -21,7 +21,7 @@ class NFA:
         printStr += (str(self.finalState) + "\n")
         printStr += ", ".join(("(" + x['from'] + ", " + x['trans'] +
                                ", " + x['to'] + ")") for x in self.transitions)
-        printStr += "\n"
+        # printStr += "\n"
         return printStr
 
 
@@ -51,12 +51,12 @@ class DFA:
         printStr = ""
         printStr += ", ".join((str(x)) for x in sorted(self.states))
         printStr += "\n"
-        printStr += ", ".join(str(x) for x in sorted(self.alphapet))
+        printStr += ",".join(str(x) for x in sorted(self.alphapet))
         printStr += "\n"
         printStr += (self.initialState + "\n")
         printStr += ", ".join(str(x) for x in sorted(self.finalStates))
         printStr += "\n"
-        printStr += ", ".join(str(x) for x in sorted(self.transitions))
+        printStr += ", ".join(str(x).replace('\'', '') for x in sorted(self.transitions))
         return printStr
 
 
