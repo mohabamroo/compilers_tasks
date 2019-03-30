@@ -12,9 +12,9 @@ def printMatches():
     for line in input_file:
         matches = regex.findall(line)
         if(matches):
-            for match in matches:
-                ouptut_file.write(match[0] + "\n")
-
+            for idx, match in enumerate(matches):
+                newLine = "" if idx==len(matches)-1 else "\n"
+                ouptut_file.write(match[0] + "_new" + newLine)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(

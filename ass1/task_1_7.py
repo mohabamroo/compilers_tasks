@@ -1,7 +1,7 @@
 import argparse
 import re
 
-fileName = "task1_1"
+fileName = "task1_7"
 regexString = "^[a-zA-Z]+.*|.*[0-9]+$"
 
 
@@ -12,8 +12,9 @@ def printMatches():
     for line in input_file:
         matches = regex.findall(line)
         if(matches):
-            for match in matches:
-                ouptut_file.write(match + "\n")
+            for idx, match in enumerate(matches):
+                newLine = "" if idx==len(matches)-1 else "\n"
+                ouptut_file.write(match + newLine)
 
 
 if __name__ == '__main__':

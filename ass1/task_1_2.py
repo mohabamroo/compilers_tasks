@@ -19,9 +19,10 @@ def printMatches():
     for line in input_file:
         matches =  re.findall(r"(?=((?:aabb)+(?:aabb)*))", line)
         if(matches):
-            for match in matches:
+            for idx, match in enumerate(matches):
                 if(match != ''):
-                    ouptut_file.write(match + "\n")
+                    newLine = "" if idx==len(matches)-1 else "\n"
+                    ouptut_file.write(match + newLine)
 
 
 if __name__ == '__main__':

@@ -2,6 +2,7 @@ import numpy as np
 import string
 import argparse
 
+fileName = "task_2_input.txt"
 expression_chars = ['(', ')', '+', '*', '?', '|', '.']
 operators = ['+', '*', '?', '|', '.']
 special_operators = ['+', '*', '?', '.']
@@ -29,11 +30,11 @@ class stack:
 
 
 class NFA:
-    def __init__(self, initialState, finalState, states, transitions):
+    def __init__(self, initialState, finalState, states, transitions, alpha=[]):
         self.initialState = initialState
         self.finalState = finalState
         self.states = states
-        self.alphapet = list(string.ascii_lowercase) + list(range(0, 10))
+        self.alphapet = alpha
         self.transitions = transitions
 
     def addTransitions(self, newTrans):
@@ -62,7 +63,7 @@ class NFA:
         # printStr += "transitions:\n"
         printStr += ", ".join(("(q" + str(x['from']) + ", " + x['tran'] + ", [" + ",".join(
             ("q" +str(s)) for s in x['to']) + "])") for x in self.transitions)
-        printStr += "\n"
+        # printStr += "\n"
         return printStr
 
 
@@ -137,8 +138,9 @@ def concat(firstNFA, secondNFA):
             idx += 1
         newTransitions.append(trans)
 
+    newAlpha = firstNFA.alphapet + list(set(secondNFA.alphapet) - set(firstNFA.alphapet))
     newNFA = NFA(firstNFA.initialState, secondNFA.finalState,
-                 newStates, newTransitions)
+                 newStates, newTransitions, newAlpha)
     return newNFA
 
 
@@ -161,7 +163,8 @@ def kleeneStar(originalNFA):
         {'from': 0, 'to': [newFinalState, originalNFA.initialState + 1], 'tran': ' '})
     newTransitions.append(
         {'from': originalNFA.finalState + 1, 'to': [originalNFA.initialState + 1, newFinalState], 'tran': ' '})
-    newNFA = NFA(0, newFinalState, newStates, newTransitions)
+    
+    newNFA = NFA(0, newFinalState, newStates, newTransitions, originalNFA.alphapet)
     return newNFA
 
 
@@ -203,7 +206,9 @@ def union(firstNFA, secondNFA):
         {'from': firstNFA.finalState + 1, 'to': [newFinalState], 'tran': ' '})
     newTransitions.append(
         {'from': secondNFA.finalState + maxLen, 'to': [newFinalState], 'tran': ' '})
-    newNFA = NFA(0, newFinalState, newStates, newTransitions)
+    
+    newAlpha = firstNFA.alphapet + list(set(secondNFA.alphapet) - set(firstNFA.alphapet))
+    newNFA = NFA(0, newFinalState, newStates, newTransitions, newAlpha)
     return newNFA
 
 
@@ -226,7 +231,9 @@ def questionMark(originalNFA):
         {'from': 0, 'to': [newFinalState, originalNFA.initialState + 1], 'tran': ' '})
     newTransitions.append(
         {'from': originalNFA.finalState + 1, 'to': [newFinalState], 'tran': ' '})
-    newNFA = NFA(0, newFinalState, newStates, newTransitions)
+
+    newAlpha = firstNFA.alphapet + list(set(secondNFA.alphapet) - set(firstNFA.alphapet))
+    newNFA = NFA(0, newFinalState, newStates, newTransitions, newAlpha)
     return newNFA
 
 
@@ -234,7 +241,7 @@ def postfixToNFA(postfix):
     nfaStack = stack()
     for char in postfix:
         if(isAlpha(char)):
-            newNFA = NFA(0, 1, [0, 1], [{'from': 0, 'to': [1], 'tran': char}])
+            newNFA = NFA(0, 1, [0, 1], [{'from': 0, 'to': [1], 'tran': char}], [char])
             nfaStack.push(newNFA)
         elif char == '.':
             secondNFA = nfaStack.pop()
@@ -267,7 +274,7 @@ def extractNFA(regex):
     resultNFA = postfixToNFA(postReg)
     nfaString = str(resultNFA)
     ouptut_file = open("./" + "task_2_result.txt", "w+")
-    ouptut_file.write(nfaString + "\n")
+    ouptut_file.write(nfaString)
 
 def openFile():
     parser = argparse.ArgumentParser(
@@ -277,6 +284,7 @@ def openFile():
                         metavar="file")
 
     args = parser.parse_args()
+    global fileName
     if(args.file):
         fileName = args.file
     input_file = open("./" + fileName, "r")
