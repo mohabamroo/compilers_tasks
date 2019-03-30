@@ -1,0 +1,3 @@
+http://erg.delph-in.net/logon
+https://www.nltk.org/book/ch08.html
+http://cs.union.edu/~striegnk/learn-prolog-now/html/node67.html

@@ -105,7 +105,6 @@ def constructDFA(fileName):
     return DFA(dfaDict)
 
 def fallbackDFA(dfa, string):
-    print(string)
     startIdx = 0
     reallyDead = False
     strignToReturn = ""
@@ -123,7 +122,6 @@ def fallbackDFA(dfa, string):
                 oldStartIdx = startIdx
                 startIdx = statesStack.length()
                 strignToReturn = strignToReturn + string[oldStartIdx:startIdx] + ", \"" + dfa.stateActionMap[popState].strip() + "\"\n"
-                print(startIdx)
                 break
         if(statesStack.empty()):
             reallyDead = True
