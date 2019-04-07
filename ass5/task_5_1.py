@@ -5,7 +5,7 @@ output_filename = 'task_5_1_result.txt'
 # This code doesn't handle <'> in the tokens, you can't use <E'> for example
 # Follow and First reference:
 # https://www.geeksforgeeks.org/compiler-design-follow-set-in-syntax-analysis/
-
+# FIXME: test case 6, 9
 def isAlpha(char):
     return not char.isupper()
 
