@@ -3,6 +3,7 @@ import argparse
 output_filename = 'task_3_1_result.txt'
 # implemented from one line input only as stated in the tutorial
 
+# FIXME: test case 5, 4 in 2nd dfa example
 class DFA:
     def __init__(self, dfaDict):
         states_map = {}

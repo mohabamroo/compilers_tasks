@@ -3,6 +3,7 @@ import re
 
 fileName = "task1_3"
 regexString = "(aabb)"
+# FIXME: my result has two more matches
 
 
 def getLongestSequenceSize(search_str, polymer_str):

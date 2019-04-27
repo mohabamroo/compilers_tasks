@@ -1,5 +1,5 @@
-B : f B'
-B' : epsilon |  e B'
-S : A a | B b | c
-A' : epsilon |  a c A'
-A : B b c A' | c c A' | B f A' | b d A'
+A : B b c A' | e c A' | B b b S A' | e b S A' | B b S d A' | e S d A' | b d A' | B c A'
+S : A a | B b | e
+B : j B' | e c A' B k B' | e b S A' B k B' | e S d A' B k B' | b d A' B k B' | A a m B' | e m B'
+A' : epsilon |  a c A' |  a b S A' |  a S d A' |  w A A' |  y A'
+B' : epsilon |  i B' |  b c A' B k B' |  b b S A' B k B' |  b S d A' B k B' |  c A' B k B' |  b m B'

@@ -3,7 +3,7 @@ import re
 
 fileName = "task1_2"
 regexString = "(aabb)"
-
+# FIXME: my result has two more matches
 
 def getLongestSequenceSize(search_str, polymer_str):
     matches = re.findall(r'(?:\b%s\b\s?)+' % search_str, polymer_str)

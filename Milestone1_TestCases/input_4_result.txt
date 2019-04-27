@@ -1,0 +1,19 @@
+IDENTIFIER  echo
+STR_LIT  "Hello"
+IDENTIFIER  echo
+CHAR_LIT  'a'
+COMMA  ,
+CHAR_LIT  'b'
+IDENTIFIER  echo
+STR_LIT  "c\n"
+COMMA  ,
+CHAR_LIT  '\t'
+COMMA  ,
+CHAR_LIT  'b'
+IDENTIFIER  echo
+RSTR_LIT  r"No need to escape \n and \t in here"
+IDENTIFIER  echo
+TRIPLESTR_LIT  """Hey look at this.
+I can keep on typing over multiple lines,
+with 'single' or "double" quotes and even
+back slashes: \n \t \r"""

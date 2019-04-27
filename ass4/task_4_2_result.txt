@@ -1,7 +1,1 @@
-S : S S' | ( S ) | a
-S' : + S | S | *
-A : A A' | b d | epsilon
-A' : c | a d
-K : a K' | b
-K' : K K'' | b b
-K'' : K b K | a K b
+S : a | b | c | d | S | epsilon

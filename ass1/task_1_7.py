@@ -3,7 +3,7 @@ import re
 
 fileName = "task1_7"
 regexString = "^[a-zA-Z]+.*|.*[0-9]+$"
-
+# FIXME: totally wrong
 
 def printMatches():
     input_file = open("input/" + fileName+".txt", "r")

@@ -3,7 +3,7 @@ import re
 
 fileName = "task1_6"
 regexString = "[^(1|2|+)](?==)"
-
+# FIXME: totally wrong
 
 def printMatches():
     input_file = open("input/" + fileName+".txt", "r")

@@ -1,7 +1,7 @@
 import argparse
 
 output_filename="task_4_1_result.txt"
-
+# FIXME: test case 8
 def extractRules(filename):
 	input_file = open("./" + filename, "r")
 	idx = -1

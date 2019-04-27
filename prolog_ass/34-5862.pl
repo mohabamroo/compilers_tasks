@@ -151,9 +151,16 @@ adverb(adverb(secretly)) --> [secretly].
 adverb(adverb(secretly)) --> [secretly].
 
 %s(T, [the,young,boy,who,worked,for,the,old,man,pushed,and,stored,a,big,box,in,the,large,empty,room,after,school],[]).
+%s(T, [the,old,woman,and,the,old,man,gave,the,poor,young,man,a,white,envelope,in,the,shed,behind,the,building],[]).
+%s(T, [every,boy,quickly,climbed,some,big,tree,while,every,girl,secretly,watched,some,boy],[]).
+%s(T, [some,brilliant,students,and,many,professors,watched,and,admired,talented,lecturers,and,appreciated,bright,scientists,and,researchers],[]).
 
 s(s(NP,VP)) --> np(NP),vp(VP).
+s(s(X,Y,Z)) --> s_conj(X), conj(Y), s(Z).
+s_conj(s_conj(X,Y)) --> np(X), vp(Y).
+
 s(s(NP,CONJ,REST)) --> sHelper(NP), conj(CONJ), s(REST).
+s(s(NP,PRO,REST)) --> sHelper(NP), pronoun(PRO), s(REST).
 sHelper(sHelper(NP,VP)) --> np(NP), vp(VP).
 
 np(np(N)) --> noun(N).
@@ -161,24 +168,32 @@ np(np(ADJ, N)) --> adjectiveRec(ADJ),noun(N).
 np(np(DET, N)) --> det(DET),noun(N).
 np(np(DET, ADJ, N)) --> det(DET),adjectiveRec(ADJ),noun(N).
 
+np(np(X,Y,Z)) --> npHelper(X), pronoun(Y), vp(Z).
+np(np(X,Y,Z)) --> npHelper(X), conj(Y), np(Z).
+
 np(np(NP, PRO, VP)) --> npHelper(NP),pronoun(PRO),verb(VP).
 np(np(NP, CONJ, VP)) --> npHelper(NP),conj(CONJ),verb(VP).
+np(np(P,NP)) --> preposition(P), np(NP).
+np(np(DET,P,NP)) --> det(DET),preposition(P), np(NP).
 
 npHelper(npHelper(N)) --> noun(N).
 npHelper(npHelper(ADJ, N)) --> adjectiveRec(ADJ),noun(N).
 npHelper(npHelper(DET, N)) --> det(DET),noun(N).
 npHelper(npHelper(DET, ADJ, N)) --> det(DET),adjectiveRec(ADJ),noun(N).
 
-adjectiveRec(ADJ) --> adjectiveRec(ADJ).
-adjectiveRec(ADJ, REST) --> adjective(ADJ), adjectiveRec(REST).
+adjectiveRec(adjectiveRec(ADJ)) --> adjective(ADJ).
+adjectiveRec(adjectiveRec(ADJ, REST)) --> adjective(ADJ), adjectiveRec(REST).
 
 prepositionRec(prepositionRec(PRO, NP)) --> preposition(PRO), np(NP).
 prepositionRec(prepositionRec(PRO, NP, REST)) --> preposition(PRO), np(NP), prepositionRec(REST).
 
 vp(vp(V,NP)) --> verb(V),np(NP).
+vp(vp(V,NP, PP)) --> verb(V),np(NP), prepositionRec(PP).
+vp(vp(V, PP)) --> verb(V),prepositionRec(PP).
+vp(vp(W,X,Y,Z)) --> verb(W), np(X), np(Y), prepositionRec(Z).
+vp(vp(V,NP,NP1)) --> verb(V),np(NP),np(NP1).
 vp(vp(V))    --> verb(V).
 vp(vp(V,CONJ,VP)) --> verb(V),conj(CONJ),vp(VP).
 vp(vp(ADV,VP)) --> adverb(ADV),vp(VP).
-
 
 

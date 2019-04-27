@@ -42,7 +42,7 @@ class DFA:
             if originalNFA.finalState in set_of_states and states_map[set_of_states] not in self.finalStates:
                 self.finalStates.append(states_map[set_of_states])
         self.transitions = [(states_map[trans[0]], trans[1], states_map.get(tuple(
-            dfaTransitions[trans]))) for trans in dfaTransitions if trans != 'DEAD' ]
+            dfaTransitions[trans]))) for trans in dfaTransitions if trans != 'DEAD']
         self.states = [states_map[key] for key in states_map]
         self.alphapet = originalNFA.alphapet
         if ' ' in self.alphapet:
@@ -57,7 +57,8 @@ class DFA:
         printStr += (self.initialState + "\n")
         printStr += ", ".join(str(x) for x in sorted(self.finalStates))
         printStr += "\n"
-        printStr += ", ".join(str(x).replace('\'', '') for x in sorted(self.transitions))
+        printStr += ", ".join(str(x).replace('\'', '')
+                              for x in sorted(self.transitions))
         return printStr
 
 
@@ -121,11 +122,15 @@ def convertNFATransToDFA(nfa_transition_table, dfa_states_set, nfaObj):
                 continue
             destinations = []
             for state in dfa_states:
-                indexTup = (state, char)
-                if indexTup in nfa_transition_table:
+                indexTup = (state, char.strip())
+                # if indexTup in nfa_transition_table:
+                try:
                     for newDest in nfa_transition_table[indexTup]:
                         if newDest not in destinations:
                             destinations.append(newDest)
+                except:
+                    keynotdoun = "notfound"
+                    # print("Not found Key: ", indexTup)
             final_destinations = []
             for dest in destinations:
                 epsDestinations = epsilonClosure([dest], nfa_transition_table)
@@ -141,7 +146,6 @@ def convertNFATransToDFA(nfa_transition_table, dfa_states_set, nfaObj):
                     dfa_states_set.append(dfa_states_tuple)
             else:
                 new_dfa_transitions[(tuple(dfa_states), char)] = ['DEAD']
-    print new_dfa_transitions
     return new_dfa_transitions
 
 
@@ -173,9 +177,8 @@ if __name__ == '__main__':
 
     dfa_transition_table = convertNFATransToDFA(
         nfa_transition_table, [tuple(dfa_initial)], nfaObj)
-    print dfa_transition_table
     final_dfa = DFA(dfa_transition_table, nfaObj)
     print(final_dfa)
-    
+
     ouptut_file = open("./task_2_2_result.txt", "w+")
     ouptut_file.write(str(final_dfa))

@@ -1,0 +1,72 @@
+IMPORT  import
+IDENTIFIER  strutils
+COMMA  ,
+IDENTIFIER  random
+IDENTIFIER  randomize
+OPEN_PAREN  (
+CLOSE_PAREN  )
+LET  let
+IDENTIFIER  answer
+EQUALS_OPERATOR  =
+IDENTIFIER  random
+OPEN_PAREN  (
+INT_LIT  10
+CLOSE_PAREN  )
+ADD_OPERATOR  +
+DIGIT  1
+WHILE  while
+IDENTIFIER  true
+COLON  :
+INDENT      
+IDENTIFIER  echo
+STR_LIT  "I have a number from 1 to 10, what is it? "
+INDENT      
+LET  let
+IDENTIFIER  guess
+EQUALS_OPERATOR  =
+IDENTIFIER  parseInt
+OPEN_PAREN  (
+IDENTIFIER  stdin
+DOT  .
+IDENTIFIER  readLine
+CLOSE_PAREN  )
+INDENT      
+IF  if
+IDENTIFIER  guess
+LESS_THAN  <
+IDENTIFIER  answer
+COLON  :
+INDENT          
+IDENTIFIER  echo
+STR_LIT  "Too low, try again"
+INDENT      
+ELIF  elif
+IDENTIFIER  guess
+GREATER_THAN  >
+IDENTIFIER  answer
+COLON  :
+INDENT          
+IDENTIFIER  echo
+STR_LIT  "Too high, try again"
+INDENT      
+ELSE  else
+COLON  :
+INDENT          
+IDENTIFIER  echo
+STR_LIT  "Correct!"
+INDENT          
+BREAK  break
+BLOCK  block
+IDENTIFIER  busyloops
+COLON  :
+INDENT      
+WHILE  while
+IDENTIFIER  true
+COLON  :
+INDENT          
+WHILE  while
+IDENTIFIER  true
+COLON  :
+INDENT              
+BREAK  break
+IDENTIFIER  busyloops

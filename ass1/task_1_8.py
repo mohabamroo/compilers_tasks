@@ -3,7 +3,7 @@ import re
 
 fileName = "task1_8"
 regexString = "(struct(\s)+(\w)+(\s)+\*(\s)*(\w)+)"
-
+# FIXME: totally wrong
 
 def printMatches():
     input_file = open("input/" + fileName+".txt", "r")

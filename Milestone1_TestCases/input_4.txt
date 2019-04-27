@@ -1,0 +1,14 @@
+echo "Hello"
+# echo 'Hello' # This will give error; single quotes are only for single character
+echo 'a', 'b'
+#[Comment here.
+Multiple lines
+are not a problem.]#
+echo "c\n", '\t', 'b'
+echo r"No need to escape \n and \t in here"
+echo """Hey look at this.
+I can keep on typing over multiple lines,
+with 'single' or "double" quotes and even
+back slashes: \n \t \r"""
+
+

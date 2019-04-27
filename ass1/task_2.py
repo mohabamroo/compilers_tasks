@@ -7,6 +7,7 @@ expression_chars = ['(', ')', '+', '*', '?', '|', '.']
 operators = ['+', '*', '?', '|', '.']
 special_operators = ['+', '*', '?', '.']
 
+# FIXME: test case 6
 class stack:
     array = []
 
@@ -122,6 +123,8 @@ def infixToPostfix(infixExp):
 
 
 def concat(firstNFA, secondNFA):
+    print("first nfa")
+    print(firstNFA)
     newStates = []
     maxLen = len(firstNFA.getStates()) - 1
     for state in firstNFA.getStates():
@@ -130,6 +133,7 @@ def concat(firstNFA, secondNFA):
         newStates.append(state+maxLen)
 
     newTransitions = firstNFA.getTransitions()
+    print(newTransitions)
     for trans in secondNFA.getTransitions():
         trans['from'] = trans['from'] + maxLen
         idx = 0
@@ -137,28 +141,31 @@ def concat(firstNFA, secondNFA):
             trans['to'][idx] = trans['to'][idx] + maxLen
             idx += 1
         newTransitions.append(trans)
-
+    print(newTransitions)
     newAlpha = firstNFA.alphapet + list(set(secondNFA.alphapet) - set(firstNFA.alphapet))
-    newNFA = NFA(firstNFA.initialState, secondNFA.finalState,
+    newNFA = NFA(firstNFA.initialState, len(newStates)-1,
                  newStates, newTransitions, newAlpha)
+    print(newNFA)
     return newNFA
 
 
 def kleeneStar(originalNFA):
     newStates = [0]
-    for state in np.add(originalNFA.getStates(), 1):
+    addedStates = list(originalNFA.getStates())
+    for state in np.add(addedStates, 1):
         newStates.append(state)
     newFinalState = len(originalNFA.getStates()) + 1
     newStates.append(newFinalState)
 
     newTransitions = []
     for trans in originalNFA.getTransitions():
-        trans['from'] = trans['from'] + 1
+        newTrans = {'to':[], 'tran': trans['tran']}
+        newTrans['from'] = trans['from'] + 1
         idx = 0
         while idx < len(trans['to']):
-            trans['to'][idx] = trans['to'][idx] + 1
+            newTrans['to'].append(trans['to'][idx] + 1)
             idx += 1
-        newTransitions.append(trans)
+        newTransitions.append(newTrans)
     newTransitions.append(
         {'from': 0, 'to': [newFinalState, originalNFA.initialState + 1], 'tran': ' '})
     newTransitions.append(
@@ -232,7 +239,7 @@ def questionMark(originalNFA):
     newTransitions.append(
         {'from': originalNFA.finalState + 1, 'to': [newFinalState], 'tran': ' '})
 
-    newAlpha = firstNFA.alphapet + list(set(secondNFA.alphapet) - set(firstNFA.alphapet))
+    newAlpha = originalNFA.alphapet
     newNFA = NFA(0, newFinalState, newStates, newTransitions, newAlpha)
     return newNFA
 

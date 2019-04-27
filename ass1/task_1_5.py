@@ -3,7 +3,7 @@ import re
 
 fileName = "task1_5"
 regexString = "((?<=(=))[0123456789]+)"
-
+# FIXME: my output has a redundant empty line
 
 def printMatches():
     input_file = open("input/" + fileName+".txt", "r")
