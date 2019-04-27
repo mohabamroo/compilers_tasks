@@ -41,11 +41,12 @@ class DFA:
                 self.initialState = states_map[set_of_states]
             if originalNFA.finalState in set_of_states and states_map[set_of_states] not in self.finalStates:
                 self.finalStates.append(states_map[set_of_states])
-        self.transitions = [(states_map[trans[0]], trans[1], states_map[tuple(
-            dfaTransitions[trans])]) for trans in dfaTransitions]
+        self.transitions = [(states_map[trans[0]], trans[1], states_map.get(tuple(
+            dfaTransitions[trans]))) for trans in dfaTransitions if trans != 'DEAD' ]
         self.states = [states_map[key] for key in states_map]
         self.alphapet = originalNFA.alphapet
-        self.alphapet.remove(' ')
+        if ' ' in self.alphapet:
+            self.alphapet.remove(' ')
 
     def __str__(self):
         printStr = ""
@@ -140,7 +141,7 @@ def convertNFATransToDFA(nfa_transition_table, dfa_states_set, nfaObj):
                     dfa_states_set.append(dfa_states_tuple)
             else:
                 new_dfa_transitions[(tuple(dfa_states), char)] = ['DEAD']
-
+    print new_dfa_transitions
     return new_dfa_transitions
 
 
@@ -172,7 +173,7 @@ if __name__ == '__main__':
 
     dfa_transition_table = convertNFATransToDFA(
         nfa_transition_table, [tuple(dfa_initial)], nfaObj)
-
+    print dfa_transition_table
     final_dfa = DFA(dfa_transition_table, nfaObj)
     print(final_dfa)
     
